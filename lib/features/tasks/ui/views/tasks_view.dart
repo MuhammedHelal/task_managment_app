@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:planning_app/features/create_task/ui/views/create_task_view.dart';
+import 'package:planning_app/features/tasks/ui/views/tasks_content_view.dart';
 import 'package:planning_app/features/tasks/ui/views/todo_history_view.dart';
 import 'package:planning_app/features/tasks/ui/widgets/todo_calender.dart';
-import 'package:planning_app/features/tasks/ui/views/tasks_content_view.dart';
 
 class TasksView extends StatelessWidget {
   const TasksView({super.key});
@@ -14,7 +14,7 @@ class TasksView extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context, rootNavigator: true).pushNamed(
-            TaskFormView.routeName,
+            CreateTaskView.routeName,
           );
         },
         child: const Icon(Icons.add),

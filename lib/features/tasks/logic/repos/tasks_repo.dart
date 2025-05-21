@@ -3,7 +3,7 @@ import 'package:planning_app/core/utils/strings.dart';
 import 'package:planning_app/features/create_task/data/models/tasks_day_entity.dart';
 
 class TasksRepo {
-  Future<List<TasksDayEntity>> getAllTodoDays() async {
+  Future<List<TasksDayEntity>> getAllTasksDays() async {
     final box = Hive.box<TasksDayEntity>(AppStrings.tasksDaysBox);
     return box.values.toList();
   }

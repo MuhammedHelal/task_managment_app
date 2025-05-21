@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:planning_app/features/create_task/logic/task_form_cubit/task_form_cubit.dart';
-import 'package:planning_app/features/create_task/logic/task_form_cubit/task_form_state.dart';
+import 'package:planning_app/features/create_task/logic/create_task_cubit/create_task_cubit.dart';
+import 'package:planning_app/features/create_task/logic/create_task_cubit/create_task_state.dart';
 
 class MonthHeaderWidget extends StatelessWidget {
   const MonthHeaderWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TaskFormCubit, TaskFormState>(
+    return BlocBuilder<CreateTaskCubit, CreateTaskState>(
       builder: (context, state) {
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -24,7 +24,7 @@ class MonthHeaderWidget extends StatelessWidget {
                 IconButton(
                   icon: const Icon(Icons.chevron_left),
                   onPressed: () =>
-                      context.read<TaskFormCubit>().changeMonth(-1),
+                      context.read<CreateTaskCubit>().changeMonth(-1),
                 ),
                 Text(
                   DateFormat('MMMM yyyy').format(state.currentMonth),
@@ -33,7 +33,8 @@ class MonthHeaderWidget extends StatelessWidget {
                 ),
                 IconButton(
                   icon: const Icon(Icons.chevron_right),
-                  onPressed: () => context.read<TaskFormCubit>().changeMonth(1),
+                  onPressed: () =>
+                      context.read<CreateTaskCubit>().changeMonth(1),
                 ),
               ],
             ),

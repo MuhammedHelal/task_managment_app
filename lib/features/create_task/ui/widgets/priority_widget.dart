@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:planning_app/features/create_task/data/enums/priority.dart';
-import 'package:planning_app/features/create_task/logic/task_form_cubit/task_form_cubit.dart';
-import 'package:planning_app/features/create_task/logic/task_form_cubit/task_form_state.dart';
+import 'package:planning_app/features/create_task/logic/create_task_cubit/create_task_cubit.dart';
+import 'package:planning_app/features/create_task/logic/create_task_cubit/create_task_state.dart';
 
 class PriorityWidget extends StatelessWidget {
   const PriorityWidget({super.key});
@@ -26,7 +26,7 @@ class _PriorityChips extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TaskFormCubit, TaskFormState>(
+    return BlocBuilder<CreateTaskCubit, CreateTaskState>(
       builder: (context, state) {
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -35,7 +35,7 @@ class _PriorityChips extends StatelessWidget {
               label: Text(priority.name),
               selected: state.priority == priority,
               onSelected: (_) =>
-                  context.read<TaskFormCubit>().updatePriority(priority),
+                  context.read<CreateTaskCubit>().updatePriority(priority),
               selectedColor: _getPriorityColor(priority),
               labelStyle: TextStyle(
                 color: state.priority == priority ? Colors.white : Colors.black,

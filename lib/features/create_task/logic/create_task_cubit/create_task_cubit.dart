@@ -4,21 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
+import 'package:planning_app/core/di/locator.dart';
 import 'package:planning_app/core/functions/time_fns.dart';
 import 'package:planning_app/core/utils/strings.dart';
 import 'package:planning_app/features/create_task/data/enums/priority.dart';
 import 'package:planning_app/features/create_task/data/models/task_entity.dart';
 import 'package:planning_app/features/create_task/data/models/tasks_day_entity.dart';
-import 'package:planning_app/features/create_task/logic/task_form_cubit/task_form_state.dart';
+import 'package:planning_app/features/create_task/logic/create_task_cubit/create_task_state.dart';
+import 'package:planning_app/features/tasks/logic/cubit/tasks_list_cubit.dart';
 
-class TaskFormCubit extends Cubit<TaskFormState> {
+class CreateTaskCubit extends Cubit<CreateTaskState> {
   final formKey = GlobalKey<FormState>();
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController titleController = TextEditingController();
-
-  TaskFormCubit()
+  CreateTaskCubit()
       : super(
-          TaskFormState(
+          CreateTaskState(
             currentMonth: DateTime.now(),
             startTime: const TimeOfDay(hour: 18, minute: 0),
             endTime: const TimeOfDay(hour: 21, minute: 0),
@@ -64,8 +65,20 @@ class TaskFormCubit extends Cubit<TaskFormState> {
       );
     } else {
       _addTask();
+
       emit(state.copyWith(formStatus: FormStatus.success));
+
+      _notifyTasksListCubit();
     }
+  }
+
+  void _notifyTasksListCubit() {
+    final cubit = locator<TasksListCubit>();
+    cubit.updateTasks();
+    cubit.animateToSelectedDate(
+      selectedDate: state.selectedDate.toString(),
+    );
+    // cubit.selectDate(selectedDate)
   }
 
   void _addTask() async {

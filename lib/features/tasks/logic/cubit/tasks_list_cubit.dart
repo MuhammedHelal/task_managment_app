@@ -12,23 +12,26 @@ class TasksListCubit extends Cubit<TasksListState> {
           status: TasksListStatus.initial,
           tasksDays: [],
         )) {
-    initPageController();
     getAllTasksDays();
+
     // initSelectedDate();
     //  getCurrentTodosDayEntityIndex();
   }
   final TasksRepo tasksRepo;
-  late final PageController pageController;
+  final PageController pageController = PageController(
+    viewportFraction: 0.85,
+  );
   void getAllTasksDays() async {
     try {
-      final result = await tasksRepo.getAllTodoDays();
+      final result = await tasksRepo.getAllTasksDays();
       //  initPageController();
       emit(
         state.copyWith(
-          tasksDayEntity: result,
+          tasksDays: result,
           status: TasksListStatus.success,
         ),
       );
+      jumpToSelectedDate(selectedDate: DateTime.now().toString());
     } catch (e) {
       emit(
         state.copyWith(
@@ -37,6 +40,18 @@ class TasksListCubit extends Cubit<TasksListState> {
         ),
       );
       // emit(Error(e.toString()));
+    }
+  }
+
+  void updateTasks() async {
+    try {
+      final result = await tasksRepo.getAllTasksDays();
+      emit(state.copyWith(tasksDays: result, status: TasksListStatus.success));
+    } catch (e) {
+      emit(state.copyWith(
+        status: TasksListStatus.error,
+        errMessage: e.toString(),
+      ));
     }
   }
   // late ValueNotifier<int> currentIndex = ValueNotifier<int>(0);
@@ -108,13 +123,44 @@ class TasksListCubit extends Cubit<TasksListState> {
   //   }
   // }
 
-  void initPageController() {
-    int? todayIndex = _getTodayIndex();
-    int initialIndex = todayIndex ?? state.tasksDays.length - 1;
-    pageController = PageController(
-      viewportFraction: 0.85,
-      initialPage: initialIndex,
+  void animateToSelectedDate({required String selectedDate}) async {
+    print('animateToSelectedDate: selectedDate $selectedDate');
+    int? index = _getSelectedDateIndex(selectedDate);
+    print('animateToSelectedDate: index $index');
+    int initialIndex = index ?? _getTodayIndex() ?? 0;
+    print('animateToSelectedDate: initialIndex $initialIndex');
+    await pageController.animateToPage(
+      initialIndex,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
     );
+  }
+
+  void jumpToSelectedDate({required String selectedDate}) async {
+    print('animateToSelectedDate: selectedDate $selectedDate');
+    int? index = _getSelectedDateIndex(selectedDate);
+    print('animateToSelectedDate: index $index');
+    int initialIndex = index ?? _getTodayIndex() ?? 0;
+    print('animateToSelectedDate: initialIndex $initialIndex');
+    pageController.jumpToPage(initialIndex);
+  }
+
+  int? _getSelectedDateIndex(selectedDate) {
+    final date = getDateAtMidnight(DateTime.parse(selectedDate));
+    print('_getSelectedDateIndex: date $date');
+    for (int i = 0; i < state.tasksDays.length; i++) {
+      final todoDay = state.tasksDays[i];
+      print('_getSelectedDateIndex: todoDay.date ${todoDay.date}');
+      if (isTwoDaysAreEqual(
+        DateTime.parse(todoDay.date),
+        DateTime.parse(date),
+      )) {
+        print('_getSelectedDateIndex: index $i');
+        return i;
+      }
+    }
+    print('_getSelectedDateIndex: not found');
+    return null;
   }
 
   int? _getTodayIndex() {

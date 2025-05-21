@@ -3,7 +3,7 @@ import 'package:planning_app/core/functions/time_fns.dart';
 import 'package:planning_app/core/utils/colors.dart';
 import 'package:planning_app/core/utils/text_styles_old.dart';
 import 'package:planning_app/features/create_task/data/models/tasks_day_entity.dart';
-import 'package:planning_app/features/tasks/ui/views/todo_day_view.dart';
+import 'package:planning_app/features/tasks/ui/views/task_day_view.dart';
 
 class TodoCardHeader extends StatelessWidget {
   const TodoCardHeader({
@@ -31,7 +31,7 @@ class TodoCardHeader extends StatelessWidget {
             IconButton(
               onPressed: () {
                 Navigator.of(context, rootNavigator: true).pushNamed(
-                  TodoDayView.routeName,
+                  TaskDayView.routeName,
                   arguments: tasksDayEntity,
                 );
               },

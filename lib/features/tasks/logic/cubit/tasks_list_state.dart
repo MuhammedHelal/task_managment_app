@@ -23,12 +23,12 @@ class TasksListState {
     DateTime? selectedDate,
     TasksListStatus? status,
     String? errMessage,
-    List<TasksDayEntity>? tasksDayEntity,
+    List<TasksDayEntity>? tasksDays,
   }) {
     return TasksListState(
       selectedDate: selectedDate ?? this.selectedDate,
       status: status ?? this.status,
-      tasksDays: tasksDayEntity ?? tasksDays,
+      tasksDays: tasksDays ?? this.tasksDays,
       errMessage: errMessage ?? this.errMessage,
     );
   }

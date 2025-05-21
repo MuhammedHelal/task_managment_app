@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:planning_app/features/create_task/logic/task_form_cubit/task_form_cubit.dart';
-import 'package:planning_app/features/create_task/logic/task_form_cubit/task_form_state.dart';
+import 'package:planning_app/features/create_task/logic/create_task_cubit/create_task_cubit.dart';
+import 'package:planning_app/features/create_task/logic/create_task_cubit/create_task_state.dart';
 
 class TimeSelectionWidget extends StatelessWidget {
   const TimeSelectionWidget({super.key});
@@ -32,7 +32,7 @@ class _TimeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TaskFormCubit, TaskFormState>(
+    return BlocBuilder<CreateTaskCubit, CreateTaskState>(
       builder: (context, state) {
         final time = isStartTime ? state.startTime : state.endTime;
         return Column(
@@ -65,7 +65,7 @@ class _TimeButton extends StatelessWidget {
   }
 
   Future<void> _selectTime(BuildContext context) async {
-    final cubit = context.read<TaskFormCubit>();
+    final cubit = context.read<CreateTaskCubit>();
     final initialTime =
         isStartTime ? cubit.state.startTime : cubit.state.endTime;
     final picked = await showTimePicker(

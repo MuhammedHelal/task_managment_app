@@ -49,7 +49,8 @@ class _TasksContentViewState extends State<TasksContentView>
     return SizedBox(
       width: screenSize.width,
       height: screenSize.height * 0.45,
-      child: BlocBuilder<TasksListCubit, TasksListState>(
+      child: BlocConsumer<TasksListCubit, TasksListState>(
+        listener: (context, state) {},
         builder: (context, state) {
           return PageView.builder(
             onPageChanged: (value) {

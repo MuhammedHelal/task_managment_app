@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:planning_app/core/helpers/toast.dart';
-import 'package:planning_app/features/create_task/logic/task_form_cubit/task_form_cubit.dart';
-import 'package:planning_app/features/create_task/logic/task_form_cubit/task_form_state.dart';
+import 'package:planning_app/features/create_task/logic/create_task_cubit/create_task_cubit.dart';
+import 'package:planning_app/features/create_task/logic/create_task_cubit/create_task_state.dart';
 import 'package:planning_app/features/create_task/ui/widgets/calender_widget.dart';
 import 'package:planning_app/features/create_task/ui/widgets/month_header.dart';
 import 'package:planning_app/features/create_task/ui/widgets/priority_widget.dart';
 import 'package:planning_app/features/create_task/ui/widgets/time_selection.dart';
 
-class TaskFormView extends StatelessWidget {
-  const TaskFormView({super.key});
+class CreateTaskView extends StatelessWidget {
+  const CreateTaskView({super.key});
   static const routeName = '/task_form_view';
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class TaskFormView extends StatelessWidget {
       appBar: AppBar(title: const Text('Create New Task')),
       body: Padding(
         padding: const EdgeInsets.all(16),
-        child: BlocListener<TaskFormCubit, TaskFormState>(
+        child: BlocListener<CreateTaskCubit, CreateTaskState>(
           listener: (context, state) {
             if (state.formStatus == FormStatus.error) {
               showToast(msg: state.errorMessage ?? '', color: Colors.red);
@@ -63,7 +63,7 @@ class _TaskTitleField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<TaskFormCubit>();
+    final cubit = context.read<CreateTaskCubit>();
 
     return TextFormField(
       controller: cubit.titleController,
@@ -80,7 +80,7 @@ class _TaskDescriptionField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<TaskFormCubit>();
+    final cubit = context.read<CreateTaskCubit>();
     return TextFormField(
       controller: cubit.descriptionController,
       decoration: const InputDecoration(
@@ -97,7 +97,7 @@ class _SubmitButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<TaskFormCubit>();
+    final cubit = context.read<CreateTaskCubit>();
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(

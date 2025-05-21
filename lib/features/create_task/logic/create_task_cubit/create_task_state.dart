@@ -5,7 +5,7 @@ import 'package:planning_app/features/create_task/data/enums/priority.dart';
 
 enum FormStatus { initial, loading, success, error }
 
-class TaskFormState {
+class CreateTaskState {
   final DateTime currentMonth;
   final DateTime? selectedDate;
   final TimeOfDay startTime;
@@ -14,7 +14,7 @@ class TaskFormState {
   final FormStatus formStatus;
   final String? errorMessage;
 
-  TaskFormState({
+  CreateTaskState({
     required this.currentMonth,
     this.selectedDate,
     required this.startTime,
@@ -24,7 +24,7 @@ class TaskFormState {
     this.errorMessage,
   });
 
-  TaskFormState copyWith({
+  CreateTaskState copyWith({
     DateTime? currentMonth,
     DateTime? selectedDate,
     TimeOfDay? startTime,
@@ -33,7 +33,7 @@ class TaskFormState {
     FormStatus? formStatus,
     String? errorMessage,
   }) {
-    return TaskFormState(
+    return CreateTaskState(
       currentMonth: currentMonth ?? this.currentMonth,
       selectedDate: selectedDate ?? this.selectedDate,
       startTime: startTime ?? this.startTime,

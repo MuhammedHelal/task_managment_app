@@ -8,8 +8,8 @@ import 'package:planning_app/features/tasks/ui/widgets/task_progress_card.dart';
 
 import '../widgets/todos_day_view_body.dart';
 
-class TodoDayView extends StatelessWidget {
-  const TodoDayView({super.key, required this.tasksDayEntity});
+class TaskDayView extends StatelessWidget {
+  const TaskDayView({super.key, required this.tasksDayEntity});
   static const routeName = '/todo-day-view';
   final TasksDayEntity tasksDayEntity;
   @override
