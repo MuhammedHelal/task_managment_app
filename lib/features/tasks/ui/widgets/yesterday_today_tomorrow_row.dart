@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:planning_app/core/utils/colors.dart';
-import 'package:planning_app/core/utils/text_styles_old.dart';
-import 'package:planning_app/features/tasks/logic/cubit/tasks_list_cubit.dart';
+import 'package:planning_app/core/utils/text_styles.dart';
+import 'package:planning_app/features/tasks/logic/cubits/cubit/tasks_cubit.dart';
 
 class YesterdayTodayTomorrowRow extends StatelessWidget {
   const YesterdayTodayTomorrowRow({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final TasksListCubit todoCubit = context.read<TasksListCubit>();
+    final cubit = BlocProvider.of<TasksCubit>(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         GestureDetector(
           onTap: () {
-            todoCubit.selectYesterday();
+            cubit.selectYesterday();
           },
           child: const DayButton(
             title: 'Yesterday',
@@ -23,7 +23,7 @@ class YesterdayTodayTomorrowRow extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () {
-            todoCubit.selectToday();
+            cubit.selectToday();
           },
           child: const DayButton(
             title: 'Today',
@@ -31,7 +31,7 @@ class YesterdayTodayTomorrowRow extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () {
-            todoCubit.selectTomorrow();
+            cubit.selectTomorrow();
           },
           child: const DayButton(
             title: 'Tomorrow',
@@ -52,17 +52,16 @@ class DayButton extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 5),
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
       decoration: BoxDecoration(
-        color: AppColors.todoColor,
+        color: AppColors.taskColor,
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
           color: Colors.grey,
-          width: 1,
         ),
       ),
       child: Center(
         child: Text(
           title,
-          style: TodoTextStyles.black16W300,
+          style: TaskTextStyles.black16W300,
         ),
       ),
     );

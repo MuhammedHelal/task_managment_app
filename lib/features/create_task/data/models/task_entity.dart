@@ -29,4 +29,47 @@ class TaskEntity {
     required this.endTime,
     required this.priority,
   });
+
+  TaskEntity copyWith({
+    String? title,
+    String? description,
+    String? startTime,
+    String? endTime,
+    Priority? priority,
+    bool? isCompleted,
+  }) {
+    return TaskEntity(
+      title: title ?? this.title,
+      description: description ?? this.description,
+      startTime: startTime ?? this.startTime,
+      endTime: endTime ?? this.endTime,
+      priority: priority ?? this.priority,
+      isCompleted: isCompleted ?? this.isCompleted,
+    );
+  }
+
+  @override
+  String toString() {
+    return 'TaskEntity{title: $title, description: $description, startTime: $startTime, endTime: $endTime, priority: $priority, isCompleted: $isCompleted}';
+  }
+
+  @override
+  int get hashCode =>
+      title.hashCode ^
+      description.hashCode ^
+      startTime.hashCode ^
+      endTime.hashCode ^
+      priority.hashCode ^
+      isCompleted.hashCode;
+  @override
+  bool operator ==(other) =>
+      identical(this, other) ||
+      other is TaskEntity &&
+          runtimeType == other.runtimeType &&
+          title == other.title &&
+          description == other.description &&
+          startTime == other.startTime &&
+          endTime == other.endTime &&
+          priority == other.priority &&
+          isCompleted == other.isCompleted;
 }

@@ -1,17 +1,13 @@
-// task_form_cubit.dart
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
-import 'package:planning_app/core/di/locator.dart';
 import 'package:planning_app/core/functions/time_fns.dart';
 import 'package:planning_app/core/utils/strings.dart';
 import 'package:planning_app/features/create_task/data/enums/priority.dart';
 import 'package:planning_app/features/create_task/data/models/task_entity.dart';
 import 'package:planning_app/features/create_task/data/models/tasks_day_entity.dart';
 import 'package:planning_app/features/create_task/logic/create_task_cubit/create_task_state.dart';
-import 'package:planning_app/features/tasks/logic/cubit/tasks_list_cubit.dart';
 
 class CreateTaskCubit extends Cubit<CreateTaskState> {
   final formKey = GlobalKey<FormState>();
@@ -21,8 +17,8 @@ class CreateTaskCubit extends Cubit<CreateTaskState> {
       : super(
           CreateTaskState(
             currentMonth: DateTime.now(),
-            startTime: const TimeOfDay(hour: 18, minute: 0),
-            endTime: const TimeOfDay(hour: 21, minute: 0),
+            startTime: const TimeOfDay(hour: 7, minute: 0),
+            endTime: const TimeOfDay(hour: 9, minute: 0),
             priority: Priority.low,
             selectedDate: DateTime.now(),
           ),
@@ -54,9 +50,7 @@ class CreateTaskCubit extends Cubit<CreateTaskState> {
       );
 
   void submitForm() {
-    if (descriptionController.text.isEmpty ||
-        titleController.text.isEmpty ||
-        state.selectedDate == null) {
+    if (titleController.text.isEmpty || state.selectedDate == null) {
       emit(
         state.copyWith(
           formStatus: FormStatus.error,
@@ -68,28 +62,24 @@ class CreateTaskCubit extends Cubit<CreateTaskState> {
 
       emit(state.copyWith(formStatus: FormStatus.success));
 
-      _notifyTasksListCubit();
+      //   _notifyTasksListCubit();
     }
   }
 
-  void _notifyTasksListCubit() {
-    final cubit = locator<TasksListCubit>();
-    cubit.updateTasks();
-    cubit.animateToSelectedDate(
-      selectedDate: state.selectedDate.toString(),
-    );
-    // cubit.selectDate(selectedDate)
-  }
+  // void _notifyTasksListCubit() {
+  //   final cubit = locator<TasksListCubit>();
+  //   cubit.updateTasks();
+  //   cubit.animateToSelectedDate(
+  //     selectedDate: state.selectedDate.toString(),
+  //   );
+  //   // cubit.selectDate(selectedDate)
+  // }
 
   void _addTask() async {
-    print('[_addTask] submitting form');
     final box = Hive.box<TasksDayEntity>(AppStrings.tasksDaysBox);
-    final formattedDate = getDateAtMidnight(state.selectedDate!);
-    print('[_addTask] date: $formattedDate');
+    final formattedDate = getDateAtMidnight(state.selectedDate!.toString());
     final taskDay = box.get(formattedDate);
-    print('[_addTask] taskDay: $taskDay');
     if (taskDay != null) {
-      print('[_addTask] updating taskDay');
       final newTaskDay = taskDay.copyWith(
         tasks: [
           ...taskDay.tasks,
@@ -103,9 +93,7 @@ class CreateTaskCubit extends Cubit<CreateTaskState> {
         ],
       );
       await box.put(formattedDate, newTaskDay);
-      print('[_addTask] updated taskDay: $newTaskDay');
     } else {
-      print('[_addTask] creating new taskDay');
       final newTaskDay = TasksDayEntity(
         date: formattedDate,
         tasks: [
@@ -119,8 +107,10 @@ class CreateTaskCubit extends Cubit<CreateTaskState> {
         ],
       );
       await box.put(formattedDate, newTaskDay);
-      print('[_addTask] created new taskDay: $newTaskDay');
     }
+
+    titleController.clear();
+    descriptionController.clear();
   }
 }
 

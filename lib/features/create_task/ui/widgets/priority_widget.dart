@@ -36,7 +36,7 @@ class _PriorityChips extends StatelessWidget {
               selected: state.priority == priority,
               onSelected: (_) =>
                   context.read<CreateTaskCubit>().updatePriority(priority),
-              selectedColor: _getPriorityColor(priority),
+              selectedColor: getPriorityColor(priority),
               labelStyle: TextStyle(
                 color: state.priority == priority ? Colors.white : Colors.black,
               ),
@@ -45,16 +45,5 @@ class _PriorityChips extends StatelessWidget {
         );
       },
     );
-  }
-
-  Color _getPriorityColor(Priority priority) {
-    switch (priority) {
-      case Priority.high:
-        return Colors.red;
-      case Priority.medium:
-        return Colors.orange;
-      case Priority.low:
-        return Colors.green;
-    }
   }
 }

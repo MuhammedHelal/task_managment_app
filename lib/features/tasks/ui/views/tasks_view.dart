@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:planning_app/features/create_task/ui/views/create_task_view.dart';
-import 'package:planning_app/features/tasks/ui/views/tasks_content_view.dart';
 import 'package:planning_app/features/tasks/ui/views/todo_history_view.dart';
-import 'package:planning_app/features/tasks/ui/widgets/todo_calender.dart';
+
+import '../widgets/tasks_list_view_widgets/tasks_list_view_bloc_provider.dart';
 
 class TasksView extends StatelessWidget {
   const TasksView({super.key});
@@ -23,31 +23,34 @@ class TasksView extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Column(
-                children: [
-                  TodoCalender(),
-                  Gap(20),
-                  TasksContentView(),
-                ],
-              ),
+              TasksListViewBlocProvider(),
               Gap(20),
-              Row(
-                children: [
-                  Gap(20),
-                  Expanded(child: Divider()),
-                  Gap(20),
-                  Text('History'),
-                  Gap(20),
-                  Expanded(child: Divider()),
-                  Gap(20),
-                ],
-              ),
+              _HistoryDivider(),
               Gap(10),
-              TodoHistoryView(),
+              TasksHistoryView(),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class _HistoryDivider extends StatelessWidget {
+  const _HistoryDivider();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Row(
+      children: [
+        Gap(20),
+        Expanded(child: Divider()),
+        Gap(20),
+        Text('History'),
+        Gap(20),
+        Expanded(child: Divider()),
+        Gap(20),
+      ],
     );
   }
 }

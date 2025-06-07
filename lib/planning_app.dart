@@ -50,7 +50,7 @@ class PlanningApp extends StatelessWidget {
               borderSide: const BorderSide(color: Colors.red),
             ),
             errorStyle: const TextStyle(color: Colors.red),
-            labelStyle: TextStyles.lighterGrey14W500,
+            labelStyle: AppTextStyles.black14,
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16),
               borderSide: const BorderSide(color: AppColors.black),
@@ -60,7 +60,7 @@ class PlanningApp extends StatelessWidget {
           ),
           iconButtonTheme: IconButtonThemeData(
             style: IconButton.styleFrom(
-              backgroundColor: AppColors.todoColor,
+              backgroundColor: AppColors.taskColor,
               foregroundColor: Colors.white,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),

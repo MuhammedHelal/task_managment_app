@@ -7,7 +7,6 @@ import 'package:planning_app/core/utils/colors.dart';
 import 'package:planning_app/features/home/ui/views/home_view.dart';
 import 'package:planning_app/features/notes/folder/logic/folders_cubit/folders_cubit.dart';
 import 'package:planning_app/features/notes/folder/ui/views/folders_view.dart';
-import 'package:planning_app/features/tasks/logic/cubit/tasks_list_cubit.dart';
 import 'package:planning_app/features/tasks/ui/views/tasks_view.dart';
 
 class PersistentBottomNavbar extends StatefulWidget {
@@ -41,10 +40,7 @@ class _PersistentBottomNavbarState extends State<PersistentBottomNavbar> {
         value: locator<FoldersCubit>(),
         child: const FoldersView(),
       ),
-      BlocProvider.value(
-        value: locator<TasksListCubit>(),
-        child: const TasksView(),
-      ),
+      const TasksView(),
       const HomeView(),
     ];
   }

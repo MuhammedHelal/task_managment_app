@@ -8,7 +8,7 @@ import 'package:planning_app/features/notes/logic/notes_cubit/notes_cubit.dart';
 import 'package:planning_app/features/notes/logic/repos/add_note_repo.dart';
 import 'package:planning_app/features/quote/data/repos/quote_repo.dart';
 import 'package:planning_app/features/quote/logic/cubit/quote_cubit.dart';
-import 'package:planning_app/features/tasks/logic/cubit/tasks_list_cubit.dart';
+import 'package:planning_app/features/tasks/logic/cubits/cubit/tasks_cubit.dart';
 import 'package:planning_app/features/tasks/logic/repos/tasks_repo.dart';
 
 final locator = GetIt.instance;
@@ -30,8 +30,12 @@ Future<void> setupLocator() async {
     () => FoldersCubit(locator())..getAllFolders(),
   );
 
-  locator.registerLazySingleton<TasksRepo>(() => TasksRepo());
-  locator.registerLazySingleton<TasksListCubit>(
-    () => TasksListCubit(locator()),
+  locator.registerLazySingleton<TasksCubit>(
+    () => TasksCubit(locator<TasksRepo>()),
   );
+
+  locator.registerLazySingleton<TasksRepo>(() => TasksRepo());
+  // locator.registerLazySingleton<TasksListCubit>(
+  //   () => TasksListCubit(locator()),
+  // );
 }

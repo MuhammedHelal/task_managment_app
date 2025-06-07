@@ -59,8 +59,6 @@ class _AddNoteTypingAreaState extends State<AddNoteTypingArea> {
                 config: const QuillEditorConfig(
                   expands: true,
                   padding: EdgeInsets.all(8),
-                  scrollable: true,
-                  textCapitalization: TextCapitalization.sentences,
                 ),
               ),
             ),
@@ -68,30 +66,20 @@ class _AddNoteTypingAreaState extends State<AddNoteTypingArea> {
           QuillSimpleToolbar(
             controller: controller,
             config: const QuillSimpleToolbarConfig(
-              showBoldButton: true, // Show Bold button
-              showItalicButton: true, // Show Italic button
-              showUnderLineButton: true, // Show Underline button
               showStrikeThrough: false, // Hide Strike-through button
               showInlineCode: false, // Hide Inline code button
               showListBullets: false, // Hide Bullet List button
               showListNumbers: false, // Hide Number List button
               showQuote: false, // Hide Quote button
               showLink: false, // Hide Link button
-              // showImage: false, // Hide Image button
-              // showVideo: false, // Hide Video button
-              showAlignmentButtons: false, // Hide Align Center button
               showJustifyAlignment: false, // Hide Align Justify button
-              showClearFormat: true, // Hide Clear Formatting button
               showFontFamily: false,
               showBackgroundColorButton: false,
               showCodeBlock: false,
-              showSmallButton: false,
-              showDirection: false,
               showCenterAlignment: false, // Show Align Center button
               showIndent: false,
               showSubscript: false,
               showSuperscript: false,
-              headerStyleType: HeaderStyleType.original,
               multiRowsDisplay: false,
               color: Colors.grey,
             ),

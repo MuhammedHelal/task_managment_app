@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class TodoHistoryView extends StatelessWidget {
-  const TodoHistoryView({super.key});
+class TasksHistoryView extends StatelessWidget {
+  const TasksHistoryView({super.key});
 
   @override
   Widget build(BuildContext context) {

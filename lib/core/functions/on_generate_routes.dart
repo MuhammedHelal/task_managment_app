@@ -21,10 +21,10 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
         builder: (context) => const TaskFormCubitProvider(),
       );
     case TaskDayView.routeName:
-      final todosDayEntity = settings.arguments as TasksDayEntity;
+      final tasksDayEntity = settings.arguments as TasksDayEntity;
       return MaterialPageRoute(
         builder: (context) => const TaskDayViewBlocProvider(),
-        settings: RouteSettings(arguments: todosDayEntity),
+        settings: RouteSettings(arguments: tasksDayEntity),
       );
     case AddNoteView.routeName:
       return MaterialPageRoute(

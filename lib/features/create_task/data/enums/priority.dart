@@ -1,9 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
 part 'priority.g.dart';
 
-@HiveType(typeId: 6) // Choose a unique typeId (0-223)
-
+@HiveType(typeId: 6)
 enum Priority {
   @HiveField(0)
   high('High'),
@@ -17,4 +17,15 @@ enum Priority {
   const Priority(this.name);
 
   final String name;
+}
+
+Color getPriorityColor(Priority priority) {
+  switch (priority) {
+    case Priority.high:
+      return Colors.red;
+    case Priority.medium:
+      return Colors.orange;
+    case Priority.low:
+      return Colors.green;
+  }
 }

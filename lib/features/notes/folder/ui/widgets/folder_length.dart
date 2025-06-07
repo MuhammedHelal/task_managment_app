@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:planning_app/core/utils/text_styles_old.dart';
+import 'package:planning_app/core/utils/text_styles.dart';
 
 class FolderLength extends StatelessWidget {
   const FolderLength({super.key, required this.active, required this.length});

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:planning_app/core/utils/colors.dart';
-import 'package:planning_app/core/utils/text_styles_old.dart';
+import 'package:planning_app/core/utils/text_styles.dart';
 import 'package:planning_app/features/quote/data/models/quote_entity.dart';
 import 'package:planning_app/features/quote/ui/widgets/quote_feedback.dart';
 import 'package:planning_app/features/quote/ui/widgets/quote_tags.dart';

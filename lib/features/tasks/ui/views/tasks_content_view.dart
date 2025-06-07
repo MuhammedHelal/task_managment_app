@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:planning_app/features/tasks/logic/cubit/tasks_list_cubit.dart';
-import 'package:planning_app/features/tasks/logic/cubit/tasks_list_state.dart';
-import 'package:planning_app/features/tasks/ui/widgets/todo_card.dart';
+import 'package:planning_app/features/create_task/data/models/tasks_day_entity.dart';
+import 'package:planning_app/features/tasks/logic/cubits/cubit/tasks_cubit.dart';
+import 'package:planning_app/features/tasks/ui/widgets/task_card.dart';
 
-class TasksContentView extends StatefulWidget {
-  const TasksContentView({super.key});
+class TasksListViewBody extends StatefulWidget {
+  const TasksListViewBody({super.key});
 
   @override
-  State<TasksContentView> createState() => _TasksContentViewState();
+  State<TasksListViewBody> createState() => _TasksListViewBodyState();
 }
 
-class _TasksContentViewState extends State<TasksContentView>
+class _TasksListViewBodyState extends State<TasksListViewBody>
     with TickerProviderStateMixin {
-  late final TasksListCubit tasksCubit;
+  late final TasksCubit tasksCubit;
 
   late final AnimationController _initialScaleController;
   final _scaleNotifier = ValueNotifier<bool>(false);
@@ -21,7 +21,7 @@ class _TasksContentViewState extends State<TasksContentView>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    tasksCubit = context.read<TasksListCubit>();
+    tasksCubit = context.read<TasksCubit>();
     _initialScaleController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 600),
@@ -46,20 +46,27 @@ class _TasksContentViewState extends State<TasksContentView>
   Widget build(BuildContext context) {
     final Size screenSize = MediaQuery.of(context).size;
 
+    print('TasksListViewBody.build: screenSize $screenSize');
+
     return SizedBox(
       width: screenSize.width,
       height: screenSize.height * 0.45,
-      child: BlocConsumer<TasksListCubit, TasksListState>(
-        listener: (context, state) {},
+      child: BlocSelector<TasksCubit, TasksState, List<TasksDayEntity>>(
+        selector: (state) {
+          return state.tasksDays;
+        },
         builder: (context, state) {
+          print('TasksListViewBody.build: state.length ${state.length}');
+
           return PageView.builder(
-            onPageChanged: (value) {
-              // todoCubit.changeSelectedDate(value);
-            },
+            onPageChanged: tasksCubit.onPageChanged,
             physics: const BouncingScrollPhysics(),
             controller: tasksCubit.pageController,
-            itemCount: state.tasksDays.length,
+            itemCount: state.length,
             itemBuilder: (context, index) {
+              print('TasksListViewBody.itemBuilder: index $index');
+              final taskDay = state[index]; // in PageView.builder
+
               return AnimatedBuilder(
                 animation: Listenable.merge([
                   tasksCubit.pageController,
@@ -84,10 +91,7 @@ class _TasksContentViewState extends State<TasksContentView>
                     child: child,
                   );
                 },
-                child: TodoCard(
-                  key: ValueKey(index),
-                  todosDayEntity: state.tasksDays[index],
-                ),
+                child: TaskCard(tasksDayEntity: taskDay),
               );
             },
           );

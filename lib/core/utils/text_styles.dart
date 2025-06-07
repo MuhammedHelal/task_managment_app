@@ -1,53 +1,98 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:planning_app/core/utils/colors.dart';
 
-abstract class TextStyles {
-  static final black24W700 = TextStyle(
-    fontSize: 24.sp,
-    fontWeight: FontWeight.w700,
+abstract class TaskTextStyles {
+  static const TextStyle black16W500 = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
     color: Colors.black,
   );
-  static final primary32Bold = TextStyle(
-    fontSize: 32.sp,
-    fontWeight: FontWeight.bold,
+  static const TextStyle black16W300 = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w300,
+    color: Colors.black,
+  );
+  static const TextStyle black14W300 = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w300,
+    color: Colors.black,
+  );
+  static const TextStyle black16Normal = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.normal,
     color: AppColors.black,
   );
-  static final primary24Bold = TextStyle(
-    fontSize: 24.sp,
-    fontWeight: FontWeight.bold,
-    color: AppColors.black,
+}
+
+abstract class FolderTextStyles {
+  static const TextStyle active = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+    color: Colors.white,
   );
 
-  static final primary14Normal = TextStyle(
-    fontSize: 14.sp,
-    fontWeight: FontWeight.normal,
-    color: AppColors.black,
-  );
-  static final black14Normal = TextStyle(
-    fontSize: 14.sp,
-    fontWeight: FontWeight.normal,
-    color: Colors.black,
-  );
-  static final grey14Normal = TextStyle(
-    fontSize: 14.sp,
-    fontWeight: FontWeight.normal,
-    color: AppColors.grey,
-  );
-  static final lighterGrey14W500 = TextStyle(
-    fontSize: 14.sp,
+  static const TextStyle notActive = TextStyle(
+    fontSize: 16,
     fontWeight: FontWeight.w500,
     color: AppColors.black,
   );
-
-  static final white16Normal = TextStyle(
-    fontSize: 16.sp,
+  static const TextStyle folderLength = TextStyle(
+    fontSize: 12,
     fontWeight: FontWeight.normal,
+    color: AppColors.black,
+  );
+}
+
+abstract class AppTextStyles {
+  static const TextStyle black25Bold = TextStyle(
+    color: AppColors.black,
+    fontSize: 25,
+    fontWeight: FontWeight.bold,
+  );
+
+  static const TextStyle black20Bold = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+    color: Colors.black,
+  );
+  static const TextStyle black18Bold = TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.bold,
+    color: Colors.black,
+  );
+  static const TextStyle black18SemiBold = TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.w400,
+    color: Colors.black,
+  );
+  static const TextStyle black18 = TextStyle(
+    fontSize: 18,
+    color: Colors.black,
+  );
+  static const TextStyle black16 = TextStyle(
+    fontSize: 16,
+    color: Colors.black,
+  );
+  static const TextStyle black14 = TextStyle(
+    fontSize: 14,
+    color: Colors.black,
+  );
+  static const TextStyle black12 = TextStyle(
+    fontSize: 12,
+    color: Colors.black,
+  );
+  static const TextStyle white20Bold = TextStyle(
+    fontSize: 20, // 20
+    fontWeight: FontWeight.bold,
     color: Colors.white,
   );
-  static final white16W600 = TextStyle(
-    fontSize: 16.sp,
-    fontWeight: FontWeight.w600,
+
+  static const TextStyle white18 = TextStyle(
+    fontSize: 18,
+    color: Colors.white,
+  );
+  static const TextStyle white16 = TextStyle(
+    fontSize: 16,
     color: Colors.white,
   );
 }

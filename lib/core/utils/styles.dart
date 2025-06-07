@@ -7,7 +7,6 @@ abstract class MyStyles {
       RoundedRectangleBorder(
         side: BorderSide(
           color: Colors.black45,
-          width: 1,
         ),
         borderRadius: BorderRadius.all(
           Radius.circular(8),

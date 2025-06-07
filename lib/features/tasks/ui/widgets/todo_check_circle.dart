@@ -14,9 +14,8 @@ class TodoCheckCircle extends StatelessWidget {
       height: 35,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(50),
-        color: isCompleted ? AppColors.todoColor : Colors.white,
+        color: isCompleted ? AppColors.taskColor : Colors.white,
         border: Border.all(
-          width: 1,
           color: AppColors.black,
         ),
       ),

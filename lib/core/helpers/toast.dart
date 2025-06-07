@@ -7,7 +7,6 @@ void showToast({required String msg, required Color color}) async {
     msg: msg,
     toastLength: Toast.LENGTH_SHORT,
     gravity: ToastGravity.CENTER,
-    timeInSecForIosWeb: 1,
     backgroundColor: color,
     textColor: Colors.white,
     fontSize: 16.0,

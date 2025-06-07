@@ -27,4 +27,15 @@ class TasksDayEntity {
       tasks: tasks ?? this.tasks,
     );
   }
+
+  @override
+  operator ==(other) =>
+      identical(this, other) ||
+      other is TasksDayEntity &&
+          runtimeType == other.runtimeType &&
+          date == other.date &&
+          tasks == other.tasks;
+
+  @override
+  int get hashCode => date.hashCode ^ tasks.hashCode;
 }

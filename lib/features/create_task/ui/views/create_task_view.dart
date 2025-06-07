@@ -68,7 +68,7 @@ class _TaskTitleField extends StatelessWidget {
     return TextFormField(
       controller: cubit.titleController,
       decoration: const InputDecoration(
-        labelText: 'Title',
+        labelText: 'Title *',
         hintText: 'Enter task title',
       ),
     );

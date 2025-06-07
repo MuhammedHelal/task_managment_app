@@ -1,35 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:planning_app/core/functions/time_fns.dart';
 import 'package:planning_app/core/utils/colors.dart';
-import 'package:planning_app/core/utils/text_styles_old.dart';
-import 'package:planning_app/features/create_task/data/models/tasks_day_entity.dart';
+import 'package:planning_app/core/utils/text_styles.dart';
+import 'package:planning_app/features/tasks/logic/cubits/task_day_view_cubit/task_day_view_cubit.dart';
 import 'package:planning_app/features/tasks/ui/widgets/task_progress_card.dart';
 
 import '../widgets/todos_day_view_body.dart';
 
 class TaskDayView extends StatelessWidget {
-  const TaskDayView({super.key, required this.tasksDayEntity});
-  static const routeName = '/todo-day-view';
-  final TasksDayEntity tasksDayEntity;
+  const TaskDayView({super.key});
+  static const routeName = '/task-day-view';
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // appBar: AppBar(
-      //   leading: IconButton(
-      //     onPressed: () {
-      //       Navigator.pop(context);
-      //     },
-      //     icon: Icon(Icons.arrow_back_ios),
-      //   ),
-
-      //   backgroundColor: AppColors.todoColor,
-      //   // todosDayEntity.dateTime,
-      // ),
+    return const Scaffold(
       body: Column(
         children: [
-          CustomAppBar(tasksDayEntity: tasksDayEntity),
-          TodosDayViewBody(todosDayEntity: tasksDayEntity),
+          CustomAppBar(),
+          TodosDayViewBody(),
         ],
       ),
     );
@@ -37,14 +26,15 @@ class TaskDayView extends StatelessWidget {
 }
 
 class CustomAppBar extends StatelessWidget {
-  const CustomAppBar({super.key, required this.tasksDayEntity});
-  final TasksDayEntity tasksDayEntity;
+  const CustomAppBar({super.key});
   @override
   Widget build(BuildContext context) {
+    final cubit = BlocProvider.of<TasksDayViewCubit>(context);
+
     return Container(
       width: double.infinity,
       decoration: const BoxDecoration(
-        color: AppColors.todoColor,
+        color: AppColors.taskColor,
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(25),
           bottomRight: Radius.circular(25),
@@ -65,14 +55,12 @@ class CustomAppBar extends StatelessWidget {
                 ),
                 Text(
                   style: AppTextStyles.white20Bold,
-                  getWeekDayAndFormattedDate(
-                    DateTime.parse(tasksDayEntity.date),
-                  ),
+                  formatDate(cubit.state.tasksDayEntity.date),
                 ), // todosDayEntity.dateTime,
               ],
             ),
             const Gap(20),
-            TaskProgressCard(tasks: tasksDayEntity.tasks),
+            const TaskProgressCard(),
           ],
         ),
       ),

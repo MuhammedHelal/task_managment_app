@@ -1,5 +1,6 @@
 import 'package:hive/hive.dart';
 import 'package:planning_app/core/utils/strings.dart';
+import 'package:planning_app/features/create_task/data/models/task_entity.dart';
 import 'package:planning_app/features/create_task/data/models/tasks_day_entity.dart';
 
 class TasksRepo {
@@ -8,6 +9,36 @@ class TasksRepo {
     return box.values.toList();
   }
 
+  void toggleIsCompleted({
+    required TaskEntity taskEntity,
+    required String currentDateKey,
+  }) async {
+    print(
+        '[toggleIsCompleted] START - taskEntity: $taskEntity, dateKey: $currentDateKey');
+
+    final box = Hive.box<TasksDayEntity>(AppStrings.tasksDaysBox);
+    print('[toggleIsCompleted] Hive box opened: ${box.name}');
+    final taskDay = box.get(currentDateKey);
+    if (taskDay != null) {
+      print('[toggleIsCompleted] taskDay found: $taskDay');
+
+      final newTaskDay = taskDay.copyWith(
+        tasks: taskDay.tasks.map((task) {
+          if (task == taskEntity) {
+            final newTask =
+                taskEntity.copyWith(isCompleted: !taskEntity.isCompleted);
+            print('[toggleIsCompleted] updating task: $task -> $newTask');
+            return newTask;
+          }
+          return task;
+        }).toList(),
+      );
+      await box.put(currentDateKey, newTaskDay);
+      print('[toggleIsCompleted] updated taskDay: $newTaskDay');
+    } else {
+      print('[toggleIsCompleted] taskDay NOT found: $currentDateKey');
+    }
+  }
   // Future<void> toggleIsCompleted({
   //   required int todoEntityIndex,
   //   required String currentDateKey,

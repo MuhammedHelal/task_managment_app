@@ -5,9 +5,9 @@ import 'package:planning_app/features/create_task/data/models/tasks_day_entity.d
 import 'package:planning_app/features/tasks/ui/widgets/todo_card_header.dart';
 import 'package:planning_app/features/tasks/ui/widgets/todo_tile.dart';
 
-class TodoCard extends StatelessWidget {
-  const TodoCard({super.key, required this.todosDayEntity});
-  final TasksDayEntity todosDayEntity;
+class TaskCard extends StatelessWidget {
+  const TaskCard({super.key, required this.tasksDayEntity});
+  final TasksDayEntity tasksDayEntity;
 
   @override
   Widget build(BuildContext context) {
@@ -15,23 +15,24 @@ class TodoCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10),
       margin: const EdgeInsets.symmetric(horizontal: 5),
       decoration: BoxDecoration(
-        color: AppColors.todoColor,
+        color: AppColors.taskColor,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          TodoCardHeader(tasksDayEntity: todosDayEntity),
+          TodoCardHeader(tasksDayEntity: tasksDayEntity),
           const Gap(20),
-          ...List.generate(
-            todosDayEntity.tasks.length,
-            (index) {
-              return TodoTile(
-                todosDayEntity: todosDayEntity,
-                index: index,
-              );
-            },
-          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: tasksDayEntity.tasks.length,
+              itemBuilder: (context, index) {
+                return TodoTile(
+                  taskEntity: tasksDayEntity.tasks[index],
+                );
+              },
+            ),
+          )
         ],
       ),
     );

@@ -8,8 +8,9 @@ String getTodayName() {
   return formattedDate;
 }
 
-String getWeekDayAndFormattedDate(DateTime date) {
-  String formattedDate = DateFormat('EEEE, MMMM d').format(date);
+String formatDate(String date) {
+  final DateTime dateTime = DateTime.parse(date);
+  String formattedDate = DateFormat('EEEE, MMMM d').format(dateTime);
   return formattedDate;
 }
 
@@ -44,14 +45,32 @@ bool isTwoDaysAreEqual(DateTime date1, DateTime date2) {
   return inputDate1 == inputDate2;
 }
 
-String getDateAtMidnight(DateTime date) {
+String getDateAtMidnight(String stringDate) {
+  final DateTime date = DateTime.parse(stringDate);
   DateTime dateOnly = DateTime(date.year, date.month, date.day);
   return dateOnly.toString();
 }
 
-String formatTime(TimeOfDay time) {
-  final hour = time.hourOfPeriod;
-  final minute = time.minute.toString().padLeft(2, '0');
-  final period = time.period == DayPeriod.am ? 'AM' : 'PM';
-  return '$hour:$minute $period';
+String formatTimeOfDay(String time) {
+  if (time.isEmpty) return '';
+  final timeOfDay = _parseTimeOfDay(time);
+  final hour = timeOfDay.hourOfPeriod;
+  final minute = timeOfDay.minute.toString().padLeft(2, '0');
+  final period = timeOfDay.period == DayPeriod.am ? 'AM' : 'PM';
+
+  if (minute == '00') {
+    return '$hour $period';
+  } else {
+    final minute = timeOfDay.minute.toString().padLeft(2, '0');
+    return '$hour:$minute $period';
+  }
+}
+
+TimeOfDay _parseTimeOfDay(String timeString) {
+  // Example input: "TimeOfDay(21:00)"
+  final timePart = timeString.replaceAll(RegExp(r'[^\d:]'), ''); // "2100"
+  final parts = timePart.split(':');
+  final hour = int.parse(parts[0]);
+  final minute = int.parse(parts[1]);
+  return TimeOfDay(hour: hour, minute: minute);
 }
